@@ -50,12 +50,7 @@ app.get('/api/products/:id', (req, res)=>{
 app.use(express.json())
 app.post('/api/products', (req, res)=>{
 
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        price: Joi.number().required()
-    })
-
-    const {error} = schema.validate(req.body)
+    const {error} = validation(req.body)
 
     if(error){
         return res.status(400).json({
@@ -79,7 +74,32 @@ app.post('/api/products', (req, res)=>{
 
 // update specific product data (using PUT method)
 
+app.put('/api/products/:id', (req, res) => {
+    const {error} = validation(req.body)
 
+    if(error){
+        return res.status(400).json({
+            messgae: error.details[0].message
+        })
+    }
+
+
+    const index = products.findIndex(prod=> prod.id === req.params.id)
+    if(index === -1){
+        return res.status(404).json({
+            messgae: 'Product not found with this ID'
+        })
+    }
+
+    products[index].name = req.body.name
+    products[index].price = req.body.price
+
+    return res.json({
+        product : products[index]
+    })
+
+
+})
 
 
 
@@ -90,3 +110,13 @@ app.post('/api/products', (req, res)=>{
 // delele all products data
 
 app.listen(3000, ()=> console.log('Server is running on port 3000'))
+
+
+function validation(body){
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        price: Joi.number().required()
+    })
+
+    return schema.validate(body)
+}
