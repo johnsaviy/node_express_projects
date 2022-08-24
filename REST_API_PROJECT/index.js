@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 
+const { v4: uuidv4 } = require('uuid')
+
+
 
 app.get('/', (req, res)=>{
     res.send('Hello world')
@@ -42,11 +45,33 @@ app.get('/api/products/:id', (req, res)=>{
    
 })
 
-
-
-
 // insert a product Data
+
+app.use(express.json())
+app.post('/api/products', (req, res)=>{
+
+    const product = {
+        id: uuidv4(),
+        name: req.body.name,
+        price: req.body.price
+    }
+
+    products.push(product)
+
+    return res.json(product)
+
+    // res.send(req.body)
+})
+
+
 // update specific product data (using PUT method)
+
+
+
+
+
+
+
 // update specific product data (using PATCH method)
 // delete a specific product data
 // delele all products data
