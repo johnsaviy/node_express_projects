@@ -9,12 +9,12 @@ app.get('/', (req, res)=>{
 
 const products = [
     {
-        id: 1,
+        id: "1",
         name: 'Orange', 
         price: 20,
     },
     {
-        id: 2,
+        id: "2",
         name: 'Apple', 
         price: 30,
     },
@@ -28,6 +28,20 @@ app.get('/api/products', (req, res)=>{
 
 
 // show specific products
+
+app.get('/api/products/:id', (req, res)=>{
+    const {id} = req.params
+    const product = products.find(prod => prod.id === id)
+
+    if (!product){
+        return res.status(404).json({
+            error: 'Product not found with this ID'
+        })
+    }
+    return res.json(product)
+   
+})
+
 
 
 
