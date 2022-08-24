@@ -3,13 +3,16 @@
     align-items: center;
     min-height: 100vh;
     display: flex;
+   
+
   }
   
   .registration_form{
-    border-radius: 5px;
+    border-radius: 10px;
     width: 400px;
     background: white;
     padding: 25px;
+    background-color: #f5efee;
   }
   
   .registration_form .title{
@@ -21,13 +24,15 @@
     font-size: 25px;
     text-transform: uppercase;
     margin-top: -25px;
-    margin-left:-15px;
+    margin-left:-25px;
     margin-right:-25px;
     padding: 20px;
+    
   }
   
   .form_wrap{
     margin-top: 35px;
+    
   }
   
   .form_wrap .input_wrap{
@@ -57,11 +62,11 @@
   }
   
   .form_wrap  input[type="text"]{
-    width: 100%;
+    width: 95%;
     padding: 10px;
     outline: none;
     border-radius: 3px;
-    border: 1.3px solid #9597a6;
+    border: 0.1px solid #c4c5c7;
   }
   
   .form_wrap  input[type="text"]:focus{
@@ -87,6 +92,7 @@
   
   /* Submit Button */
   .form_wrap .submit_btn{
+    margin-top: 10px;
     font-size:17px;
     border-radius: 3px;
     text-transform: uppercase;

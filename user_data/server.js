@@ -26,11 +26,11 @@ app.use('/js', express.static(path.resolve(__dirname, 'assets/js')))
 
 
 app.get('/', (req, res)=>{
-    res.render('layout')
+    res.render('form')
 });
 
 app.get('/table', (req, res)=>{
-    res.render('table_layout')
+    res.render('table')
 })
 
 app.listen(PORT, ()=>{

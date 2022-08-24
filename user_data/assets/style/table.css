@@ -42,3 +42,20 @@
     font-weight: bold;
     color: #cc5e05;
 }
+
+
+/* Button style */
+
+button{
+    background-color: #bb3219;
+    color:#f7f7f7;
+    border: none;
+    letter-spacing: 0.15rem;
+    padding: 10px;
+    font-weight: bold;
+}
+
+button:hover{
+    background-color: #d14e37;
+    cursor: pointer
+}
