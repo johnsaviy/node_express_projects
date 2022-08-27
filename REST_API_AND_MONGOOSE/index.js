@@ -10,14 +10,22 @@ const Task = require('./model/Task')
 async function db(){
 
     try{
-        const user = new User({
-            name: 'John',
-            age: 30,
-            email: 'john@gmail.com',
-            password: 'johnpass'
-        }) 
-        await user.save()
-        console.log(user)
+        const task = new Task({
+            description: `This is task 1`,
+            isCompleted: true
+
+        })
+
+       await task.save()
+       console.log(task)
+        // const user = new User({
+        //     name: 'John',
+        //     age: 30,
+        //     email: 'john@gmail.com',
+        //     password: 'johnpass'
+        // }) 
+        // await user.save()
+        // console.log(user)
     }
     catch(e){
         console.log(colors.red.underline.bold(e.message))
