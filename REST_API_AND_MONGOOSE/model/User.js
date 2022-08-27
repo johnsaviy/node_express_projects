@@ -6,18 +6,25 @@ const userSchema = new mongoose.Schema({
         type: String,
         minlength: 3,
         maxlength: 20,
-        required: true
+        required: true,
+        trim: true,
     },
     age: {
         type: Number,
+        
         validate(value){
             if(value < 18){
                 throw new Error(`Age cant't be less than 18`)
             }
         }
+
     },
     email: {
         type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error(`Email is not valid`)
