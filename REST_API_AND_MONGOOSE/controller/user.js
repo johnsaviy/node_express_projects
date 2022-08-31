@@ -1,10 +1,11 @@
 const User = require('../model/User')
-
+const bcrypt = require('bcryptjs')
 
 // /user POST
-exports.storeUser =  async (req, res)=>{
+exports.createUser =  async (req, res)=>{
 
     try{
+        // req.body.password  = await bcrypt.hash(req.body.password, 8) --> transferred to user-model file
         const user = new User(req.body)
         await user.save()
         return res.status(201).json({success: true, user})
@@ -41,17 +42,30 @@ exports.getSingleUser = async (req, res) =>{
 exports.updateUser = async (req, res) =>{
     
     try{
-        const userData = await User.findByIdAndUpdate(req.params.id, req.body, {
-            new : true,
-            runValidators: true,
-        })
-        if(!userData){
+        const user = await User.findById(req.params.id)
+
+        if(!user){
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
             })
         }
-        return res.json({success: true, userData})
+
+        const keys = Object.keys(req.body)
+
+        for (let key of keys){
+            user[key] = req.body[key]
+        }
+
+        await user.save()
+
+        if(!user){
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            })
+        }
+        return res.json({success: true, user})
 
     }
     catch(e){
@@ -84,4 +98,28 @@ exports.deleteSpecificUser = async (req, res) =>{
         })
     }
     
+}
+
+exports.login = async (req, res) =>{
+    //match email and password
+    const {email, password} = req.body
+    const user = await User.findOne({email})
+    if(!user){
+        return res.status(401).json({
+            success: false,
+            message: 'User not found'
+        })
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password)
+    if(!isMatch){
+        return res.status(401).json({
+            success: false,
+            message: 'Invalid password'
+        })
+    }
+    return res.status(200).json({
+        success: true,
+        user,
+    })
 }

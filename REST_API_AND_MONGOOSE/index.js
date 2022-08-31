@@ -5,9 +5,10 @@ const app = express()
 const userRoutes = require('./routes/user')
 const taskRoutes = require('./routes/task')
 
+app.use(express.json())
 app.use(userRoutes)
 app.use(taskRoutes)
-app.use(express.json())
+
 
 mongoose.connect('mongodb://localhost:27017/task').then(()=> 
 console.log('Database is connected'.blue)).catch((err)=> console.log(err))

@@ -1,21 +1,22 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 var schema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        require: true
     },
     team: {
         type: String,
-        required: true
+        require: true
     },
     stack: {
         type: String,
-        required: true
+        require: true
     },
     gender: {
         type: String,
-        required: true
+        require: true
     },
 
 })
